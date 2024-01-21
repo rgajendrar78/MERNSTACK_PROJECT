@@ -1,5 +1,5 @@
 import multer from "multer";
-import { imageModel } from "../models/image.js";
+import * as imageService from "../services/image.js";
 
 export const upload = multer({
   storage: multer.diskStorage({
@@ -14,13 +14,10 @@ export const upload = multer({
 
 export const imageUpload = async (req, res) => {
   try {
-    // Save image information to MongoDB
-    const newImage = new imageModel({
-      filename: req.file.filename,
-      path: req.file.path,
-    });
+    const { filename, path } = req.file;
 
-    await newImage.save();
+    // Save image information to MongoDB using the service
+    const newImage = await imageService.saveImageInfo(filename, path);
 
     res.status(200).json({
       success: true,

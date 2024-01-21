@@ -1,25 +1,14 @@
-import nodemailer from "nodemailer";
+import * as emailService from "../services/emailSend.js";
 
 export const emailSend = async (req, res) => {
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "",
-        pass: "",
-      },
-    });
+    const from = ""; // Add your sender email address here
+    const to = ""; // Add your recipient email address here
+    const subject = "Sending Email using Node.js";
+    const text = "That was easy!";
 
-    const mailOptions = {
-      from: "",
-      to: "",
-      subject: "Sending Email using Node.js",
-      text: "That was easy!",
-    };
-
-    const info = await transporter.sendMail(mailOptions);
-
-    console.log("Email sent: " + info.response);
+    // Send email using the service
+    await emailService.sendEmail(from, to, subject, text);
 
     res.json({
       status: "success",

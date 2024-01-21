@@ -6,7 +6,7 @@ import {
   isValidEmail,
   isValidPassword,
   verifyToken,
-} from "./authController.js";
+} from "../services/authServices.js";
 
 // signUpUser user
 export const signUpUser = async (req, res) => {
